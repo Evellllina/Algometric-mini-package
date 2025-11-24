@@ -1,4 +1,4 @@
-from typing import List, Any, Optional, Callable
+from typing import List
 
 def factorial(n: int) -> int:
     """Факториал"""
@@ -34,8 +34,7 @@ def fib_recursive(n: int) -> int:
     return n if n <= 1 else fib_recursive(n - 1) + fib_recursive(n - 2)
 
 
-def bubble_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
-                cmp: Optional[Callable[[Any, Any], int]] = None) -> List[Any]:
+def bubble_sort(a: list, key=None, cmp=None) -> list:
     """Пузырьковая"""
     a = a.copy()#создаем копию, чтобы не менять факториал
     n = len(a)
@@ -52,8 +51,7 @@ def bubble_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
     return a
 
 
-def quick_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
-               cmp: Optional[Callable[[Any, Any], int]] = None) -> List[Any]:
+def quick_sort(a: list, key=None, cmp=None) -> list:
     """Быстрая сортировка"""
     if len(a) <= 1:
         return a.copy()
@@ -64,8 +62,7 @@ def quick_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
     return quick_sort(left, key, cmp) + middle + quick_sort(right, key, cmp)#рекурсивно сортируем левую и правую часть
 
 
-def counting_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
-                  cmp: Optional[Callable[[Any, Any], int]] = None) -> List[Any]:
+def counting_sort(a: list, key=None, cmp=None) -> list:
     """Подсчетом"""
     if not a:
         return []#находим диапазон значений
@@ -81,15 +78,14 @@ def counting_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
     return result
 
 
-def radix_sort(a: List[Any], base: int = 10, key: Optional[Callable[[Any], Any]] = None,
-               cmp: Optional[Callable[[Any, Any], int]] = None) -> List[Any]:
+def radix_sort(a: list, base=10, key=None, cmp=None) -> list:
     """Поразрядная сортировка"""
     if not a:
         return []
     max_v = max(key(x) if key else x for x in a)
     exp = 1 #с маладшего разряда
     while max_v // exp > 0:
-        b: List[List[Any]] = [[] for _ in range(base)] #верно для каждой цифры
+        b: List[list] = [[] for _ in range(base)] #верно для каждой цифры
         for x in a:
             val = key(x) if key else x
             b[(val // exp) % base].append(x)
@@ -100,9 +96,7 @@ def radix_sort(a: List[Any], base: int = 10, key: Optional[Callable[[Any], Any]]
     return a
 
 
-def bucket_sort(a: List[Any], buckets: Optional[int] = None,
-                key: Optional[Callable[[Any], Any]] = None,
-                cmp: Optional[Callable[[Any, Any], int]] = None) -> List[Any]:
+def bucket_sort(a: list, buckets=None, key=None, cmp=None) -> list:
     """Блочная сортировка"""
     if not a:
         return []
@@ -111,7 +105,7 @@ def bucket_sort(a: List[Any], buckets: Optional[int] = None,
     min_v = min(key(x) if key else x for x in a)#определяем диапазон значений
     max_v = max(key(x) if key else x for x in a)
     b_range = (max_v - min_v) / buckets#размер кадого блока
-    b_list: List[List[Any]] = [[] for _ in range(buckets)]#создаем блоки
+    b_list: List[list] = [[] for _ in range(buckets)]#создаем блоки
     for x in a:
         val = key(x) if key else x
         index = min(int((val - min_v) / b_range), buckets - 1)
@@ -122,8 +116,7 @@ def bucket_sort(a: List[Any], buckets: Optional[int] = None,
     return result
 
 
-def heap_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
-              cmp: Optional[Callable[[Any, Any], int]] = None) -> List[Any]:
+def heap_sort(a: list, key=None, cmp=None) -> list:
     """Пирамидальная"""
     def heapify(n: int, i: int) -> None:
         k = i#корень
@@ -147,8 +140,7 @@ def heap_sort(a: List[Any], key: Optional[Callable[[Any], Any]] = None,
     return a
 
 
-def _compare(a: Any, b: Any, key: Optional[Callable[[Any], Any]] = None,
-             cmp: Optional[Callable[[Any, Any], int]] = None) -> int:
+def _compare(a, b, key=None, cmp=None) -> int:
     """Вспомогательная функция сравнения"""
     a_v = key(a) if key else a#применяем функцию, есди есть
     b_v = key(b) if key else b

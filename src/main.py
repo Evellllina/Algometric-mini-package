@@ -5,7 +5,6 @@ from src.data_structures import Stack
 from src.data_structures import Queue
 from src.generators import rand_int_array, nearly_sorted, many_duplicates, reverse_sorted
 from src.benchmarking import benchmark_sorts
-from typing import Callable
 
 def main():
     while True:
@@ -60,7 +59,7 @@ def sorting_menu():
         print("Ошибка ввода массива")
         return
 
-    sort_functions: dict[str, Callable] = {
+    sort_functions = {
         '1': bubble_sort, '2': quick_sort, '3': counting_sort,
         '4': radix_sort, '5': bucket_sort, '6': heap_sort
     }
@@ -167,7 +166,7 @@ def benchmark_menu():
     algo_input = input("Номера через пробел: ").strip()
     algo_choices = algo_input.split() if algo_input else []
 
-    algos: dict[str, Callable[[list], list]] = {}
+    algos = {}
     if '7' in algo_choices or not algo_choices:
         algos = {
             "Пузырьковая": bubble_sort, "Быстрая": quick_sort,
